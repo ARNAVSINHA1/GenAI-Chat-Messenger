@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -19,10 +19,12 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
+    "plugins": [
+      "react"
+    ],
     "extends": [
       "react-app",
-      "react-app/jest",
-      "react/jsx-no-undef"
+      "react-app/jest"
     ]
   },
   "browserslist": {

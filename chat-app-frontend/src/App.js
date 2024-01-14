@@ -1,31 +1,25 @@
-import React, { useContext, useState } from 'react';
-import ChatContext from './ChatContext';
+// eslint-disable-next-line no-unused-vars
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { ChatContextProvider } from './context/ChatContext';
+import Home from '/home/arnava/work/GenAI-Chat-Messenger/chat-app-frontend/src/components/Home/Home.js';
+// eslint-disable-next-line no-unused-vars
+import Chat from '@components/Chat/Chat';
+import { useChatContext } from './context/ChatContext';
 
-const ChatBox = () => {
-   const {messages, sendMessage} = useContext(ChatContext);
-   const [inputValue, setInputValue] = useState('');
+function App() {
+  const { isConnected } = useChatContext();
+  return (
+    <ChatContextProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          {isConnected && <Route path="/chat" component={Chat} />}
+          {!isConnected && <Redirect to="/" />}
+        </Switch>
+      </Router>
+    </ChatContextProvider>
+  );
+}
 
-   const handleSubmit = (e) => {
-    e.preventDefault();
-    sendMessage(inputValue);
-    setInputValue('');
-   };
-
-   return (
-    <div className="chatbox">
-        {messages.map((message, index) => (
-          <div key={index}>{message}</div>
-        ))}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button type="submit">Send</button>
-        </form>
-    </div>
-   );
-};
-
-export default ChatBox;
+export default App;
